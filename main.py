@@ -12,7 +12,7 @@ def green(green_threads, room_size):
     global flag, turn, total_counter
     
     while(True):
-        sleep(0.01)
+        sleep(2)
 
         flag[0] = True
         turn = 1
@@ -44,7 +44,7 @@ def blue(blue_threads, room_size):
     global flag, turn, total_counter
     
     while(True):
-        sleep(0.01)
+        sleep(2)
 
         flag[1] = True
         turn = 0
