@@ -11,7 +11,6 @@ total_counter = 0
 def green(green_threads, room_size):
     global flag, turn, total_counter
     
-    
     while(True):
         sleep(0.01)
 
@@ -22,8 +21,7 @@ def green(green_threads, room_size):
         while(flag[1] and turn == 1):
             continue
 
-        # critical section
-        print("\n<><> Green Only <><>\n")
+        print("<><> Green Only <><>\n")
 
         while(room_counter < room_size):
             if(green_threads > 0):
@@ -34,18 +32,16 @@ def green(green_threads, room_size):
                 print("Thread ID: ", total_counter)
                 print("Color: Green\n")
             else: break
+            if(room_counter == room_size or green_threads == 0):
+                print("*** Empty Fitting Room ***\n")
 
         flag[0] = False
-
-        # remainder section
-        print("\n*** Empty Fitting Room ***\n")
 
         if(green_threads <= 0):
             break 
 
 def blue(blue_threads, room_size):
     global flag, turn, total_counter
-    
     
     while(True):
         sleep(0.01)
@@ -57,8 +53,7 @@ def blue(blue_threads, room_size):
         while(flag[0] and turn == 0):
             continue
 
-        # critical section
-        print("\n<><> Blue Only <><>\n")
+        print("<><> Blue Only <><>\n")
 
         while(room_counter < room_size):
             if(blue_threads > 0):
@@ -69,11 +64,10 @@ def blue(blue_threads, room_size):
                 print("Thread ID: ", total_counter)
                 print("Color: Blue\n")
             else: break
+            if(room_counter == room_size or blue_threads == 0):
+                print("*** Empty Fitting Room ***\n")
 
         flag[1] = False  
-
-        # remainder section
-        print("\n*** Empty Fitting Room ***\n")
 
         if(blue_threads <= 0):
             break  
