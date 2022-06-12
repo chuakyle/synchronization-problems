@@ -1,4 +1,5 @@
 import threading
+from time import sleep
 
 # Initialize; both threads are not yet ready
 flag = [False, False]
@@ -11,6 +12,8 @@ def green(green_threads):
 
     #
     while(True):
+        sleep(0.01)
+
         flag[0] = True
         turn = 1
         
@@ -18,7 +21,7 @@ def green(green_threads):
             continue
 
         # critical section
-        print("producer critical")
+        print("\n--- Green Only ---\n")
         total_counter += 1
         green_threads -= 1
 
@@ -27,7 +30,7 @@ def green(green_threads):
         flag[0] = False
 
         # remainder section
-        print("\nEmpty Fitting Room\n")
+        print("\n*** Empty Fitting Room ***\n")
 
         if(green_threads <= 0):
             break 
@@ -36,8 +39,10 @@ def blue(blue_threads):
     global flag, turn, total_counter
 
     while(True):
+        sleep(0.01)
+        
         flag[1] = True
-        turn = 0
+        turn = 0 
 
         while(flag[0] and turn == 0):
             continue
@@ -46,14 +51,14 @@ def blue(blue_threads):
         total_counter += 1
         blue_threads -= 1
 
-        print("consumer critical")
+        print("\n--- Blue Only ---\n")
         print("Thread ID: ", total_counter)
         print("Color: Blue")
 
         flag[1] = False  
 
         # remainder section
-        print("\nEmpty Fitting Room\n")
+        print("\n*** Empty Fitting Room ***\n")
 
         if(blue_threads <= 0):
             break  
@@ -73,10 +78,12 @@ room_size = int(room_size)
 blue_threads = int(blue_threads)
 green_threads = int(green_threads)
 
-green = threading.Thread(target = green, args=[green_threads])
-blue = threading.Thread(target = blue, args=[blue_threads])
-green.start()
-blue.start()
+green = threading.Thread(target = green, args=[green_threads]).start()
+blue = threading.Thread(target = blue, args=[blue_threads]).start()
+
+# blue.start()
+# green.start()
+
 
 #   test = threading.Thread(target = test)
 #   test.start()
