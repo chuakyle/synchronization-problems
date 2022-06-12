@@ -73,8 +73,8 @@ room_size = int(room_size)
 blue_threads = int(blue_threads)
 green_threads = int(green_threads)
 
-green = threading.Thread(target = green, args=green_threads)
-blue = threading.Thread(target = blue, args=blue_threads)
+green = threading.Thread(target = green, args=[green_threads])
+blue = threading.Thread(target = blue, args=[blue_threads])
 green.start()
 blue.start()
 
